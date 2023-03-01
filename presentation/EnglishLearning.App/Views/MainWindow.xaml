@@ -5,49 +5,46 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:EnglishLearning.App.Views"
         xmlns:vm="clr-namespace:EnglishLearning.App.ViewModels"
-        xmlns:l="clr-namespace:EnglishLearning.App" d:DataContext="{d:DesignInstance Type=vm:StudyWindowVM}"
-        DataContext="{Binding Source={StaticResource ViewModelLocator}, Path=StudyWindowVM}"
+        xmlns:l="clr-namespace:EnglishLearning.App"
+        DataContext="{Binding Source={StaticResource ViewModelLocator}, Path=MainWindowVM}"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
 
     <Grid>
+            <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200" />
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+
         <TextBlock
-            HorizontalAlignment="Left"
-            Margin="40,0,0,0"
-            TextWrapping="Wrap"
-            Text="{Binding WordName}"
+            Background="LightGreen"
+            Grid.Column="0"
+            Text="Меню"
             TextAlignment="Center"
-            FontSize="25"
-            VerticalAlignment="Center"
-            Width="280"
-            Height="50"/>
-        <TextBlock
-            HorizontalAlignment="Right"
-            Margin="0,0,40,0"
-            TextWrapping="Wrap"
-            Text="{Binding WordTranslation}"
-            TextAlignment="Center"
-            FontSize="25"
-            VerticalAlignment="Center"
-            Width="280"
-            Height="50"/>
+            Margin="0,00,0,0"
+            FontSize="20"
+            FontWeight="Bold"/>
         <Button
-            Content="Далее"
-            Command="{Binding NextWord}"
-            FontSize="14"
-            HorizontalAlignment="Center"
-            Margin="0,338,0,0"
+            Grid.Column="0"
+            Width="160"
+            Height="50"
             VerticalAlignment="Top"
-            Height="62"
-            Width="230"/>
+            Margin="20,325,20,0"
+            Content="Выход"
+            FontSize="14"
+            Command="{Binding Quit}"/>
         <Button
-            Content="Прослушать"
-            Command="{Binding PlayAudio}"
-            FontSize="14"
-            HorizontalAlignment="Right"
-            Margin="0,50,40,0"
+            Grid.Column="0"
+            Width="160"
+            Height="50"
             VerticalAlignment="Top"
-            Height="31"
-            Width="84"/>
+            Margin="20,75,20,0"
+            Content="Изучить новые слова"
+            FontSize="14"
+            Command="{Binding ChangePage}" />
+
+        <Frame Grid.Column="1" Content="{Binding PageSource}" NavigationUIVisibility="Hidden" />
     </Grid>
+    
 </Window>

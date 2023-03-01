@@ -1,4 +1,5 @@
-﻿using EnglishLearning.App.ViewModels;
+﻿using EnglishLearning.App.Services;
+using EnglishLearning.App.ViewModels;
 using EnglishLearning.Memory;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -13,9 +14,11 @@ namespace EnglishLearning.App
         {
             var services = new ServiceCollection();
 
-            services.AddScoped<StudyWindowVM>();
+            services.AddScoped<MainWindowVM>();
+            services.AddScoped<LearningPageVM>();
 
             services.AddSingleton<IWordRepository, WordRepository> ();
+            services.AddSingleton<PageService>();
 
             provider = services.BuildServiceProvider();
 
@@ -25,6 +28,7 @@ namespace EnglishLearning.App
             }
         }
 
-        public StudyWindowVM StudyWindowVM => provider.GetRequiredService<StudyWindowVM>();
+        public LearningPageVM LearningPageVM => provider.GetRequiredService<LearningPageVM>();
+        public MainWindowVM MainWindowVM => provider.GetRequiredService<MainWindowVM>();
     }
 }
