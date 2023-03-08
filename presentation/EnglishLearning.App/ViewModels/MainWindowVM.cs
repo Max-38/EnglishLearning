@@ -1,4 +1,5 @@
-﻿using EnglishLearning.App.Models;
+﻿using DevExpress.Mvvm;
+using EnglishLearning.App.Models;
 using EnglishLearning.App.Services;
 using EnglishLearning.App.Views;
 using System.ComponentModel;
@@ -9,44 +10,32 @@ using System.Windows.Input;
 
 namespace EnglishLearning.App.ViewModels
 {
-    public class MainWindowVM : INotifyPropertyChanged
+    public class MainWindowVM : ViewModelBase
     {
         private readonly PageService pageService;
 
-        private Page pageSource;
-        public Page PageSource
-        {
-            get { return pageSource; }
-            set
-            {
-                pageSource = value;
-                OnPropertyChanged();
-            }
-        }
+        public Page PageSource { get; set; }
 
         public MainWindowVM (PageService pageService)
         {
             this.pageService = pageService;
 
             this.pageService.OnPageChanged += (page) => PageSource = page;
-            this.pageService.ChangePage(new LearningPage());
         }
 
-        public ICommand ChangePage => new RelayCommand(obj =>
+        public ICommand ChangePageToLearningPage => new RelayCommand(obj =>
         {
-            this.pageService.ChangePage(new TestPage());
+            this.pageService.ChangePage(new LearningPage());
+        });
+
+        public ICommand ChangePageToWordTranslationPage => new RelayCommand(obj =>
+        {
+            this.pageService.ChangePage(new WordTranslationPage());
         });
 
         public ICommand Quit => new RelayCommand(obj =>
         {
             Application.Current.Shutdown();
         });
-
-
-        public event PropertyChangedEventHandler? PropertyChanged;
-        public void OnPropertyChanged([CallerMemberName] string propertyName = "")
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
     }
 }

@@ -15,7 +15,8 @@ namespace EnglishLearning.App
             var services = new ServiceCollection();
 
             services.AddScoped<MainWindowVM>();
-            services.AddScoped<LearningPageVM>();
+            services.AddTransient<LearningPageVM>();
+            services.AddTransient<WordTranslationPageVM>();
 
             services.AddSingleton<IWordRepository, WordRepository> ();
             services.AddSingleton<PageService>();
@@ -30,5 +31,6 @@ namespace EnglishLearning.App
 
         public LearningPageVM LearningPageVM => provider.GetRequiredService<LearningPageVM>();
         public MainWindowVM MainWindowVM => provider.GetRequiredService<MainWindowVM>();
+        public WordTranslationPageVM WordTranslationPageVM => provider.GetRequiredService<WordTranslationPageVM>();
     }
 }
