@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace EnglishLearning.App.Views
 {
     /// <summary>
-    /// Логика взаимодействия для TestPage.xaml
+    /// Логика взаимодействия для WordTranslationPage.xaml
     /// </summary>
-    public partial class TestPage : Page
+    public partial class WordTranslationPage : Page
     {
-        public TestPage()
+        public WordTranslationPage()
         {
             InitializeComponent();
         }

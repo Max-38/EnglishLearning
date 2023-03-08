@@ -12,9 +12,43 @@
       Title="LearningPage">
 
     <Grid Background="White">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="100"/>
+        </Grid.RowDefinitions>
+
         <TextBlock
+            Grid.Row="0"
+            Text="Изучение слов"
+            VerticalAlignment="Center"
+            HorizontalAlignment="Center"
+            FontSize="20"
+            FontWeight="Bold"/>
+
+        <TextBlock
+            Grid.Row="1"
+            Text="{Binding Message}"
+            VerticalAlignment="Center"
+            HorizontalAlignment="Center"
+            FontSize="20"/>
+        
+        <Button
+            Grid.Row="2"
+            Content="Прослушать"
+            Command="{Binding PlayAudio}"
+            FontSize="14"
+            HorizontalAlignment="Right"
+            Margin="0,0,40,0"
+            VerticalAlignment="Center"
+            Height="31"
+            Width="84"/>
+        
+        <TextBlock
+            Grid.Row="3"
             HorizontalAlignment="Left"
-            Margin="0,0,0,0"
             TextWrapping="Wrap"
             Text="{Binding WordName}"
             TextAlignment="Center"
@@ -23,8 +57,8 @@
             Width="280"
             Height="50"/>
         <TextBlock
+            Grid.Row="3"
             HorizontalAlignment="Right"
-            Margin="0,0,0,0"
             TextWrapping="Wrap"
             Text="{Binding WordTranslation}"
             TextAlignment="Center"
@@ -32,24 +66,15 @@
             VerticalAlignment="Center"
             Width="280"
             Height="50"/>
+        
         <Button
+            Grid.Row="4"
             Content="Далее"
             Command="{Binding NextWord}"
             FontSize="14"
             HorizontalAlignment="Center"
-            Margin="0,338,0,0"
-            VerticalAlignment="Top"
+            VerticalAlignment="Center"
             Height="62"
             Width="230"/>
-        <Button
-            Content="Прослушать"
-            Command="{Binding PlayAudio}"
-            FontSize="14"
-            HorizontalAlignment="Right"
-            Margin="0,50,40,0"
-            VerticalAlignment="Top"
-            Height="31"
-            Width="84"/>
-
     </Grid>
 </Page>

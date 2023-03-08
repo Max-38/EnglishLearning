@@ -34,7 +34,8 @@
             Content="Выход"
             FontSize="14"
             Command="{Binding Quit}"/>
-        <Button
+        <RadioButton
+            Style="{StaticResource {x:Type ToggleButton}}"
             Grid.Column="0"
             Width="160"
             Height="50"
@@ -42,7 +43,17 @@
             Margin="20,75,20,0"
             Content="Изучить новые слова"
             FontSize="14"
-            Command="{Binding ChangePage}" />
+            Command="{Binding ChangePageToLearningPage}" />
+        <RadioButton
+            Style="{StaticResource {x:Type ToggleButton}}"
+            Grid.Column="0"
+            Width="160"
+            Height="50"
+            VerticalAlignment="Top"
+            Margin="20,150,20,0"
+            Content="Слово - перевод"
+            FontSize="14"
+            Command="{Binding ChangePageToWordTranslationPage}" />
 
         <Frame Grid.Column="1" Content="{Binding PageSource}" NavigationUIVisibility="Hidden" />
     </Grid>
