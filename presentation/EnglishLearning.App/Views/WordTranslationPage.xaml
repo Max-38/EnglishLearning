@@ -12,7 +12,7 @@
     <Grid Background="White">
         <Grid.RowDefinitions>
             <RowDefinition Height="50" />
-            <RowDefinition Height="100" />
+            <RowDefinition Height="*" />
             <RowDefinition Height="100" />
             <RowDefinition Height="100"/>
             <RowDefinition Height="50"/>
@@ -22,7 +22,7 @@
         <TextBlock
             Grid.Row="0"
             Text="Выберите перевод слова"
-            FontSize="20"
+            FontSize="24"
             FontWeight="Bold"
             TextAlignment="Center"
             VerticalAlignment="Center"/>
@@ -85,6 +85,7 @@
             Foreground="{Binding Color}"/>
         <Button
             Grid.Row="5"
+            Height="50"
             Width="100"
             HorizontalAlignment="Right"
             Margin="0,0,50,0"

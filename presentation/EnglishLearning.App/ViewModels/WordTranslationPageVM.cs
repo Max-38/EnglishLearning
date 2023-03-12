@@ -48,11 +48,11 @@ namespace EnglishLearning.App.ViewModels
             {
                 DescriptionAnswer = "Правильно";
                 Color = new SolidColorBrush(Colors.Green);
-                wordRepository.GetWord(idTrainedWord).Passed = false;
+                wordRepository.GetWord(idTrainedWord).Learned = true;
             }
             else
             {
-                DescriptionAnswer = "Неверно";
+                DescriptionAnswer = $"Неверно. Правильный ответ: {TrainedWordTranslation}";
                 Color = new SolidColorBrush(Colors.Red);
                 wordRepository.GetWord(idTrainedWord).Passed = false;
             }
