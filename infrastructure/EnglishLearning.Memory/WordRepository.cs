@@ -10,7 +10,7 @@ namespace EnglishLearning.Memory
             new Word (2, "Work", "Работа", false, false, @"infrastructure\EnglishLearning.Memory\Resources\Audio\Work.mp3"),
             new Word (3, "Sword", "Меч", false, false, @"infrastructure\EnglishLearning.Memory\Resources\Audio\Sword.mp3"),
             new Word (4, "Money", "Деньги", false, false, @"infrastructure\EnglishLearning.Memory\Resources\Audio\Work.mp3"),
-            new Word (5, "time", "Время", true, false, @"infrastructure\EnglishLearning.Memory\Resources\Audio\Work.mp3")
+            new Word (5, "Time", "Время", true, true, @"infrastructure\EnglishLearning.Memory\Resources\Audio\Work.mp3")
         };
 
         public Word GetWord(int id)
@@ -36,6 +36,12 @@ namespace EnglishLearning.Memory
         {
             bool result = words.Any(item => item.Passed == false);
             return result;
+        }
+
+        public List<Word> GetLearnedWords()
+        {
+            List<Word> learnedWords = words.Where(item => item.Learned == true).ToList();
+            return learnedWords;
         }
 
         public int GetMaxId()

@@ -12,6 +12,7 @@ namespace EnglishLearning
         public Word GetRandomWord(Random rnd);
         public List<Word> GetPassedWords();
         public bool CheckNonPassedWord();
+        public List<Word> GetLearnedWords();
         public int GetMaxId();
         public Uri GetPathToAudio(string path);
     }

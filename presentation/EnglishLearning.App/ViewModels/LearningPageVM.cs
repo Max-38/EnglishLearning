@@ -20,7 +20,6 @@ namespace EnglishLearning.App.ViewModels
         {
             this.wordRepository = wordRepository;
 
-            Message = null;
             GetNextWord();
         }
 

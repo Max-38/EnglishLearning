@@ -54,6 +54,16 @@
             Content="Слово - перевод"
             FontSize="14"
             Command="{Binding ChangePageToWordTranslationPage}" />
+        <RadioButton
+            Style="{StaticResource {x:Type ToggleButton}}"
+            Grid.Column="0"
+            Width="160"
+            Height="50"
+            VerticalAlignment="Top"
+            Margin="20,225,20,0"
+            Content="Словарь"
+            FontSize="14"
+            Command="{Binding ChangePageToDictionaryPage}" />
 
         <Frame Grid.Column="1" Content="{Binding PageSource}" NavigationUIVisibility="Hidden" />
     </Grid>
