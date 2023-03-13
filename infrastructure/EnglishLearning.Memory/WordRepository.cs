@@ -6,11 +6,11 @@ namespace EnglishLearning.Memory
     {
         private readonly List<Word> words = new List<Word>
         {
-            new Word (1, "Exist", "Существовать", false, false, @"infrastructure\EnglishLearning.Memory\Resources\Audio\Exist.mp3"),
-            new Word (2, "Work", "Работа", false, false, @"infrastructure\EnglishLearning.Memory\Resources\Audio\Work.mp3"),
-            new Word (3, "Sword", "Меч", false, false, @"infrastructure\EnglishLearning.Memory\Resources\Audio\Sword.mp3"),
-            new Word (4, "Money", "Деньги", false, false, @"infrastructure\EnglishLearning.Memory\Resources\Audio\Work.mp3"),
-            new Word (5, "Time", "Время", true, true, @"infrastructure\EnglishLearning.Memory\Resources\Audio\Work.mp3")
+            new Word (1, "Exist", "Существовать", false, false, false, @"infrastructure\EnglishLearning.Memory\Resources\Audio\Exist.mp3"),
+            new Word (2, "Work", "Работа", true, false, false, @"infrastructure\EnglishLearning.Memory\Resources\Audio\Work.mp3"),
+            new Word (3, "Sword", "Меч", false, false, false, @"infrastructure\EnglishLearning.Memory\Resources\Audio\Sword.mp3"),
+            new Word (4, "Money", "Деньги", false, false, false, @"infrastructure\EnglishLearning.Memory\Resources\Audio\Work.mp3"),
+            new Word (5, "Time", "Время", true, true, true, @"infrastructure\EnglishLearning.Memory\Resources\Audio\Work.mp3")
         };
 
         public Word GetWord(int id)
@@ -26,10 +26,16 @@ namespace EnglishLearning.Memory
             return randomWord;
         }
 
-        public List<Word> GetPassedWords()
+        public List<Word> GetWordsForExerciseWordTranslation()
         {
-            List<Word> passedWords = words.Where(item => item.Passed == true).ToList();
-            return passedWords;
+            List<Word> wordsForExercise = words.Where(item => item.Passed == true && item.ExerciseWordTranslation == false).ToList();
+            return wordsForExercise;
+        }
+
+        public List<Word> GetWordsForExerciseListening()
+        {
+            List<Word> wordsForExercise = words.Where(item => item.Passed == true && item.ExerciseListening == false).ToList();
+            return wordsForExercise;
         }
 
         public bool CheckNonPassedWord()
@@ -40,7 +46,10 @@ namespace EnglishLearning.Memory
 
         public List<Word> GetLearnedWords()
         {
-            List<Word> learnedWords = words.Where(item => item.Learned == true).ToList();
+            List<Word> learnedWords = words.Where(item =>
+                                                  item.ExerciseWordTranslation == true
+                                                  && item.ExerciseListening == true)
+                                                  .ToList();
             return learnedWords;
         }
 

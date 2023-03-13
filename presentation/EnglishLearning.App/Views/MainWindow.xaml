@@ -8,7 +8,7 @@
         xmlns:l="clr-namespace:EnglishLearning.App"
         DataContext="{Binding Source={StaticResource ViewModelLocator}, Path=MainWindowVM}"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="450" Width="800" ResizeMode="NoResize">
 
     <Grid>
             <Grid.ColumnDefinitions>
@@ -25,22 +25,14 @@
             Margin="0,00,0,0"
             FontSize="20"
             FontWeight="Bold"/>
-        <Button
-            Grid.Column="0"
-            Width="160"
-            Height="50"
-            VerticalAlignment="Top"
-            Margin="20,325,20,0"
-            Content="Выход"
-            FontSize="14"
-            Command="{Binding Quit}"/>
+
         <RadioButton
             Style="{StaticResource {x:Type ToggleButton}}"
             Grid.Column="0"
             Width="160"
             Height="50"
             VerticalAlignment="Top"
-            Margin="20,75,20,0"
+            Margin="20,50,20,0"
             Content="Изучить новые слова"
             FontSize="14"
             Command="{Binding ChangePageToLearningPage}" />
@@ -50,7 +42,7 @@
             Width="160"
             Height="50"
             VerticalAlignment="Top"
-            Margin="20,150,20,0"
+            Margin="20,125,20,0"
             Content="Слово - перевод"
             FontSize="14"
             Command="{Binding ChangePageToWordTranslationPage}" />
@@ -60,10 +52,30 @@
             Width="160"
             Height="50"
             VerticalAlignment="Top"
-            Margin="20,225,20,0"
+            Margin="20,200,20,0"
+            Content="Аудирование"
+            FontSize="14"
+            Command="{Binding ChangePageToListeningPage}" />
+        <RadioButton
+            Style="{StaticResource {x:Type ToggleButton}}"
+            Grid.Column="0"
+            Width="160"
+            Height="50"
+            VerticalAlignment="Top"
+            Margin="20,275,20,0"
             Content="Словарь"
             FontSize="14"
             Command="{Binding ChangePageToDictionaryPage}" />
+
+        <Button
+            Grid.Column="0"
+            Width="160"
+            Height="50"
+            VerticalAlignment="Bottom"
+            Margin="20,0,20,15"
+            Content="Выход"
+            FontSize="14"
+            Command="{Binding Quit}"/>
 
         <Frame Grid.Column="1" Content="{Binding PageSource}" NavigationUIVisibility="Hidden" />
     </Grid>
