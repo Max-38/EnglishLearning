@@ -34,10 +34,11 @@ namespace EnglishLearning.App.ViewModels
                 Message = "Словарь пуст";
         }
 
-        public ICommand SubmitWordForLearning => new RelayCommand(obj =>
+        public ICommand TransferWordToRelearn => new RelayCommand(obj =>
         {
             Word word = obj as Word;
-            word.Learned = false;
+            word.ExerciseWordTranslation = false;
+            word.ExerciseListening = false;
             word.Passed = false;
             LearnedWords.Remove(word);
             if (LearnedWords.Count == 0)

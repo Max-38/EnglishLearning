@@ -85,7 +85,7 @@
             Width="175"
             Content="Отправить на изучение"
             FontSize="16"
-            Command="{Binding SubmitWordForLearning}"
+            Command="{Binding TransferWordToRelearn}"
             CommandParameter="{Binding ElementName=DataGridDictionary, Path=SelectedItem}"/>
     </Grid>
 </Page>

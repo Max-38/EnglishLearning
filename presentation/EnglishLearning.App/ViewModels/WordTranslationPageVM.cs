@@ -1,15 +1,8 @@
-﻿using DevExpress.DXBinding.Native;
-using DevExpress.Mvvm;
+﻿using DevExpress.Mvvm;
 using EnglishLearning.App.Models;
-using EnglishLearning.App.Views;
 using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Controls;
-using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Media;
 
@@ -19,15 +12,15 @@ namespace EnglishLearning.App.ViewModels
     {
         private readonly IWordRepository wordRepository;
 
-        private List<Word> PassedWords { get; set; }
+        private List<Word> WordsForExercise { get; set; }
+        public Word TrainedWord { get; set; }
         public string TrainedWordName { get; set; }
-        public string TrainedWordTranslation { get; set; }
         public string[] ButtonContent { get; set; }
         public string DescriptionAnswer { get; set; }
         public SolidColorBrush Color { get; set; }
 
-        private int idTrainedWord;
-        private string? answer;
+
+        private string answer; 
         private Random rnd = new Random();
 
 
@@ -35,7 +28,8 @@ namespace EnglishLearning.App.ViewModels
         {
             this.wordRepository = wordRepository;
 
-            PassedWords = wordRepository.GetPassedWords();
+            WordsForExercise = wordRepository.GetWordsForExerciseWordTranslation();
+            TrainedWord = GetTrainedWord();
             AssingValues();
         }
 
@@ -44,29 +38,30 @@ namespace EnglishLearning.App.ViewModels
         {
             answer = obj as string;
 
-            if (answer == TrainedWordTranslation)
+            if (answer == TrainedWord.Translation)
             {
                 DescriptionAnswer = "Правильно";
                 Color = new SolidColorBrush(Colors.Green);
-                wordRepository.GetWord(idTrainedWord).Learned = true;
+                TrainedWord.ExerciseWordTranslation = true;
             }
             else
             {
-                DescriptionAnswer = $"Неверно. Правильный ответ: {TrainedWordTranslation}";
+                DescriptionAnswer = $"Неверно. Правильный ответ: {TrainedWord.Translation}";
                 Color = new SolidColorBrush(Colors.Red);
-                wordRepository.GetWord(idTrainedWord).Passed = false;
+                TrainedWord.Passed = false;
+                TrainedWord.ExerciseListening = false;
             }
-        }, obj => answer == null && TrainedWordName != "Слов для тренировки не осталось");
+        }, obj => answer == null && TrainedWordName != "Нет слов для тренировки");
 
         public ICommand NextWord => new RelayCommand(obj =>
         {
-            Word word = PassedWords.Single(item => item.Id == idTrainedWord);
-            PassedWords.Remove(word);
+            WordsForExercise.Remove(TrainedWord);
             answer = null;
             DescriptionAnswer = null;
             Color = null;
+            TrainedWord = GetTrainedWord();
             AssingValues();
-        }, obj => answer != null && TrainedWordName != "Слов для тренировки не осталось");
+        }, obj => answer != null && TrainedWordName != "Нет слов для тренировки");
 
 
         private void AssingValues()
@@ -83,34 +78,31 @@ namespace EnglishLearning.App.ViewModels
                 }
                 while (buttonContent.Any(item => item == buttonContent[i]) && count < 4);
             }
-            Word word = GetTrainedWord();
             int index = rnd.Next(0, 4);
 
-            if (word == null)
+            if (TrainedWord == null)
             {
-                TrainedWordName = "Слов для тренировки не осталось";
+                TrainedWordName = "Нет слов для тренировки";
                 return;
             }
 
-            if (!buttonContent.Any(item => item == word.Translation))
-                buttonContent[index] = word.Translation;
+            if (!buttonContent.Any(item => item == TrainedWord.Translation))
+                buttonContent[index] = TrainedWord.Translation;
 
             ButtonContent = buttonContent;
-            TrainedWordName = word.Name;
-            TrainedWordTranslation = word.Translation;
+            TrainedWordName = TrainedWord.Name;
         }
 
 
             private Word GetTrainedWord()
-        {
-            if(PassedWords.Count > 0)
             {
-                int index = rnd.Next(0, PassedWords.Count);
-                idTrainedWord = PassedWords[index].Id;
-                return PassedWords[index];
+                if(WordsForExercise.Count > 0)
+                {
+                    int index = rnd.Next(0, WordsForExercise.Count);
+                    return WordsForExercise[index];
+                }
+                return null;
             }
-            return null;
-        }
 
         private string GetContentForButton()
         {

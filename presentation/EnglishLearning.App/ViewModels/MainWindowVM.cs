@@ -33,6 +33,11 @@ namespace EnglishLearning.App.ViewModels
             this.pageService.ChangePage(new WordTranslationPage());
         });
 
+        public ICommand ChangePageToListeningPage => new RelayCommand(obj =>
+        {
+            this.pageService.ChangePage(new ListeningPage());
+        });
+
         public ICommand ChangePageToDictionaryPage => new RelayCommand(obj =>
         {
             this.pageService.ChangePage(new DictionaryPage());

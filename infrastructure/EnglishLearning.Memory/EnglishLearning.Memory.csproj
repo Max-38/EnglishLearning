@@ -23,7 +23,9 @@
     <Resource Include="Resources\Audio\Sword.mp3">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Resources\Audio\Work.mp3" />
+    <Resource Include="Resources\Audio\Work.mp3">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
 
 </Project>
