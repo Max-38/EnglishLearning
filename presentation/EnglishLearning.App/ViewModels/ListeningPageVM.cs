@@ -1,5 +1,6 @@
 ﻿using DevExpress.Mvvm;
 using EnglishLearning.App.Models;
+using EnglishLearning.Services;
 using System;
 using System.Collections.Generic;
 using System.Windows.Input;
@@ -9,26 +10,24 @@ namespace EnglishLearning.App.ViewModels
 {
     public class ListeningPageVM : ViewModelBase
     {
-        private readonly IWordRepository wordRepository;
+        private readonly WordService wordService;
 
         public Word TrainedWord { get; set; }
         public string Answer { get; set; }
         public string DescriptionAnswer { get; set; }
         public string Message { get; set; }
         public SolidColorBrush Color { get; set; }
-        private List<Word> WordsForExercise { get; set; }
 
 
-        private Random rnd = new Random();
+        private List<Word> words;
 
 
-        public ListeningPageVM(IWordRepository wordRepository)
+        public ListeningPageVM(WordService wordService)
         {
-            this.wordRepository = wordRepository;
+            this.wordService = wordService;
 
-            WordsForExercise = wordRepository.GetWordsForExerciseListening();
-            TrainedWord = GetTrainedWord();
-            PlayAudio();
+            words = wordService.GetListOfWordsForPage(nameof(ListeningPageVM));
+            GetNextWord();
         }
 
         public ICommand CheckAnswer => new RelayCommand(obj =>
@@ -49,18 +48,15 @@ namespace EnglishLearning.App.ViewModels
                 TrainedWord.ExerciseWordTranslation = false;
             }
 
-            WordsForExercise.Remove(TrainedWord);
+            words.Remove(TrainedWord);
 
         }, obj => TrainedWord != null && DescriptionAnswer == null);
 
         public ICommand NextWord => new RelayCommand(obj =>
         {
-            TrainedWord = GetTrainedWord();
-
             Answer = null;
             DescriptionAnswer = null;
-
-            PlayAudio();
+            GetNextWord();
 
         }, obj => TrainedWord != null && DescriptionAnswer != null);
 
@@ -69,26 +65,28 @@ namespace EnglishLearning.App.ViewModels
             PlayAudio();
         }, obj => TrainedWord != null);
 
-        private Word GetTrainedWord()
+        private void GetNextWord()
         {
-            if (WordsForExercise.Count > 0)
+            if (words.Count > 0 && words != null)
             {
-                int index = rnd.Next(0, WordsForExercise.Count);
+                TrainedWord = words[0];
                 Message = "Напишите услышанное слово";
-                return WordsForExercise[index];
+                PlayAudio();
+                return;
             }
-            Message = "Нет слов для тренировки";
-            return null;
+            else
+            {
+                TrainedWord = null;
+                Message = "Нет слов для тренировки";
+                return;
+            }
         }
 
         private void PlayAudio()
         {
-            if (TrainedWord != null)
-            {
-                var player = new MediaPlayer();
-                player.Open(wordRepository.GetPathToAudio(TrainedWord.PathToAudio));
-                player.Play();
-            }
+            var player = new MediaPlayer();
+            player.Open(wordService.GetPathToAudio(TrainedWord.PathToAudio));
+            player.Play();
         }
     }
 }

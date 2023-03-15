@@ -8,7 +8,7 @@ namespace EnglishLearning.Tests
         public void GetWord_WithNegativeArgument_ReturnNull()
         {
             IWordRepository wordRepository = new WordRepository();
-            Word actual = wordRepository.GetWord(-1);
+            Word actual = wordRepository.GetWordById(-1);
             Assert.Null(actual);
         }
 
@@ -16,7 +16,7 @@ namespace EnglishLearning.Tests
         public void GetWord_WithZeroArgument_ReturnNull()
         {
             IWordRepository wordRepository = new WordRepository();
-            Word actual = wordRepository.GetWord(0);
+            Word actual = wordRepository.GetWordById(0);
             Assert.Null(actual);
         }
     }

@@ -15,7 +15,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "presentation", "presentatio
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EnglishLearning.App", "presentation\EnglishLearning.App\EnglishLearning.App.csproj", "{FC79E254-BC19-4289-9C18-7A2F0EC7BB88}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EnglishLearning.Tests", "domain\EnglishLearning.Tests\EnglishLearning.Tests.csproj", "{2C55E435-8186-41A8-B8E6-D2F74AF7EBC1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EnglishLearning.Tests", "domain\EnglishLearning.Tests\EnglishLearning.Tests.csproj", "{2C55E435-8186-41A8-B8E6-D2F74AF7EBC1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

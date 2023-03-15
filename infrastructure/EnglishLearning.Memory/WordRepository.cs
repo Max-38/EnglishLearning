@@ -13,35 +13,30 @@ namespace EnglishLearning.Memory
             new Word (5, "Time", "Время", true, true, true, @"infrastructure\EnglishLearning.Memory\Resources\Audio\Work.mp3")
         };
 
-        public Word GetWord(int id)
+        public List<Word> GetWordsForLearning()
         {
-            Word word = words.SingleOrDefault(item => item.Id == id);
-            return word;
-        }
-
-        public Word GetRandomWord(Random rnd)
-        {
-            int index = rnd.Next(0, words.Count);
-            Word randomWord = words[index];
-            return randomWord;
+            List<Word> wordsForLearning = words.Where(item =>
+                                                      item.Passed == false)
+                                                      .ToList();
+            return wordsForLearning;
         }
 
         public List<Word> GetWordsForExerciseWordTranslation()
         {
-            List<Word> wordsForExercise = words.Where(item => item.Passed == true && item.ExerciseWordTranslation == false).ToList();
+            List<Word> wordsForExercise = words.Where(item =>
+                                                      item.Passed == true 
+                                                      && item.ExerciseWordTranslation == false)
+                                                      .ToList();
             return wordsForExercise;
         }
 
         public List<Word> GetWordsForExerciseListening()
         {
-            List<Word> wordsForExercise = words.Where(item => item.Passed == true && item.ExerciseListening == false).ToList();
+            List<Word> wordsForExercise = words.Where(item =>
+                                                      item.Passed == true
+                                                      && item.ExerciseListening == false)
+                                                      .ToList();
             return wordsForExercise;
-        }
-
-        public bool CheckNonPassedWord()
-        {
-            bool result = words.Any(item => item.Passed == false);
-            return result;
         }
 
         public List<Word> GetLearnedWords()
@@ -53,19 +48,9 @@ namespace EnglishLearning.Memory
             return learnedWords;
         }
 
-        public int GetMaxId()
+        public List<Word> GetAllWords()
         {
-            return words.Count;
-        }
-
-        public Uri GetPathToAudio(string path)
-        {
-            // получаем путь к корневой папке проекта
-            string workingDirectory = Environment.CurrentDirectory;
-            string root = Directory.GetParent(workingDirectory).Parent.Parent.Parent.Parent.FullName;
-
-            Uri uri = new Uri(Path.Combine(root, path), UriKind.RelativeOrAbsolute);
-            return uri;
+            return words;
         }
     }
 }

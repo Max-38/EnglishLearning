@@ -1,6 +1,7 @@
 ﻿using EnglishLearning.App.Services;
 using EnglishLearning.App.ViewModels;
 using EnglishLearning.Memory;
+using EnglishLearning.Services;
 using Microsoft.Extensions.DependencyInjection;
 
 
@@ -21,6 +22,7 @@ namespace EnglishLearning.App
             services.AddTransient<DictionaryPageVM>();
 
             services.AddSingleton<IWordRepository, WordRepository> ();
+            services.AddSingleton<WordService>();
             services.AddSingleton<PageService>();
 
             provider = services.BuildServiceProvider();

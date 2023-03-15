@@ -1,34 +1,29 @@
 ﻿using DevExpress.Mvvm;
 using DevExpress.Mvvm.Native;
 using EnglishLearning.App.Models;
-using EnglishLearning.App.Views;
-using System;
-using System.Collections.Generic;
+using EnglishLearning.Services;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace EnglishLearning.App.ViewModels
 {
     public class DictionaryPageVM : ViewModelBase
     {
-        private readonly IWordRepository wordRepository;
+        private readonly WordService wordService;
 
         public ObservableCollection<Word> LearnedWords { get; set; }
         public string Message { get; set; }
 
-        public DictionaryPageVM (IWordRepository wordRepository)
+        public DictionaryPageVM (WordService wordService)
         {
-            this.wordRepository = wordRepository;
+            this.wordService = wordService;
 
             ShowListOrMessage();
         }
 
         private void ShowListOrMessage()
         {
-            LearnedWords = wordRepository.GetLearnedWords().ToObservableCollection();
+            LearnedWords = wordService.GetListOfWordsForPage(nameof(DictionaryPageVM)).ToObservableCollection();
 
             if (LearnedWords.Count == 0)
                 Message = "Словарь пуст";
