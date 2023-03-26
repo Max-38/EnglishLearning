@@ -35,6 +35,7 @@ namespace EnglishLearning.App.ViewModels
             word.ExerciseWordTranslation = false;
             word.ExerciseListening = false;
             word.Passed = false;
+            wordService.UpdateWord(word);
             LearnedWords.Remove(word);
             if (LearnedWords.Count == 0)
                 Message = "Словарь пуст";

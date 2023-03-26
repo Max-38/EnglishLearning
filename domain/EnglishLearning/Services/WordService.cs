@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace EnglishLearning.Services
+﻿namespace EnglishLearning.Services
 {
     public class WordService
     {
@@ -58,14 +52,9 @@ namespace EnglishLearning.Services
             }
         }
 
-        public Uri GetPathToAudio(string path)
+        public void UpdateWord(Word word)
         {
-            // получаем путь к корневой папке проекта
-            string workingDirectory = Environment.CurrentDirectory;
-            string root = Directory.GetParent(workingDirectory).Parent.Parent.Parent.Parent.FullName;
-
-            Uri uri = new Uri(Path.Combine(root, path), UriKind.RelativeOrAbsolute);
-            return uri;
+            wordRepository.UpdateWord(word);
         }
     }
 }

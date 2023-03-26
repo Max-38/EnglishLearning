@@ -20,6 +20,7 @@ namespace EnglishLearning.App.ViewModels
 
 
         private List<Word> words;
+        private MediaPlayer player = new MediaPlayer();
 
 
         public ListeningPageVM(WordService wordService)
@@ -38,6 +39,7 @@ namespace EnglishLearning.App.ViewModels
                 DescriptionAnswer = "Правильно";
 
                 TrainedWord.ExerciseListening = true;
+                wordService.UpdateWord(TrainedWord);
             }
             else
             {
@@ -46,6 +48,7 @@ namespace EnglishLearning.App.ViewModels
 
                 TrainedWord.Passed = false;
                 TrainedWord.ExerciseWordTranslation = false;
+                wordService.UpdateWord(TrainedWord);
             }
 
             words.Remove(TrainedWord);
@@ -62,7 +65,8 @@ namespace EnglishLearning.App.ViewModels
 
         public ICommand Play => new RelayCommand(obj =>
         {
-            PlayAudio();
+            player.Open(new Uri(@$"..\..\..\Resources\Audio\{TrainedWord.NameAudio}", UriKind.RelativeOrAbsolute));
+            player.Play();
         }, obj => TrainedWord != null);
 
         private void GetNextWord()
@@ -71,7 +75,8 @@ namespace EnglishLearning.App.ViewModels
             {
                 TrainedWord = words[0];
                 Message = "Напишите услышанное слово";
-                PlayAudio();
+                player.Open(new Uri(@$"Resources\Audio\{TrainedWord.NameAudio}", UriKind.RelativeOrAbsolute));
+                player.Play();
                 return;
             }
             else
@@ -80,13 +85,6 @@ namespace EnglishLearning.App.ViewModels
                 Message = "Нет слов для тренировки";
                 return;
             }
-        }
-
-        private void PlayAudio()
-        {
-            var player = new MediaPlayer();
-            player.Open(wordService.GetPathToAudio(TrainedWord.PathToAudio));
-            player.Play();
         }
     }
 }

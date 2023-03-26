@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace EnglishLearning
+﻿namespace EnglishLearning
 {
     public interface IWordRepository
     {
@@ -13,5 +7,6 @@ namespace EnglishLearning
         public List<Word> GetWordsForExerciseListening();
         public List<Word> GetLearnedWords();
         public List<Word> GetAllWords();
+        public void UpdateWord(Word word);
     }
 }

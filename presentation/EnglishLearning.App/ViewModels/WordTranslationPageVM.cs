@@ -3,7 +3,6 @@ using EnglishLearning.App.Models;
 using EnglishLearning.Services;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -45,6 +44,7 @@ namespace EnglishLearning.App.ViewModels
                 DescriptionAnswer = "Правильно";
                 Color = new SolidColorBrush(Colors.Green);
                 trainedWord.ExerciseWordTranslation = true;
+                wordService.UpdateWord(trainedWord);
             }
             else
             {
@@ -52,6 +52,7 @@ namespace EnglishLearning.App.ViewModels
                 Color = new SolidColorBrush(Colors.Red);
                 trainedWord.Passed = false;
                 trainedWord.ExerciseListening = false;
+                wordService.UpdateWord(trainedWord);
             }
         }, obj => answer == null && TrainedWordNameOrMessage != "Нет слов для тренировки");
 
