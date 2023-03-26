@@ -40,13 +40,6 @@
             Content="Прослушать"
             FontSize="20"
             Command="{Binding Play}"/>
-        <TextBlock
-            Grid.Row="2"
-            Text="{Binding TrainedWord.Translation}"
-            VerticalAlignment="Center"
-            HorizontalAlignment="Center"
-            Margin="0,0,0,50"
-            FontSize="20"/>
         <TextBox
             Grid.Row="2"
             Width="500"

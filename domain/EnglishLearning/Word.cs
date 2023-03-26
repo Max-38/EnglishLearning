@@ -1,28 +1,38 @@
-﻿namespace EnglishLearning;
+﻿using EnglishLearning.Data;
+
+namespace EnglishLearning;
 public class Word
 {
-    public int Id { get; }
-    public string? Name { get; }
-    public string? Translation { get; }
-    public bool Passed { get; set; }
-    public bool ExerciseWordTranslation { get; set; }
-    public bool ExerciseListening { get; set; }
-    public string? PathToAudio { get;  }
+    private readonly WordDto dto;
 
-    public Word (int id,
-                 string? name,
-                 string? translation,
-                 bool passed,
-                 bool exerciseWordTranslation,
-                 bool exerciseListening,
-                 string pathToAudio)
+    public int Id => dto.Id;
+    public string Name => dto.Name;
+    public string Translation => dto.Translation;
+    public bool Passed
     {
-        Id = id;
-        Name = name;
-        Translation = translation;
-        Passed = passed;
-        ExerciseWordTranslation = exerciseWordTranslation;
-        ExerciseListening = exerciseListening;
-        PathToAudio = pathToAudio;
+        get => dto.Passed;
+        set => dto.Passed = value;
+    }
+    public bool ExerciseWordTranslation
+    {
+        get => dto.ExerciseWordTranslation;
+        set => dto.ExerciseWordTranslation = value;
+    }
+    public bool ExerciseListening
+    {
+        get => dto.ExerciseListening;
+        set => dto.ExerciseListening = value;
+    }
+    public string NameAudio => dto.NameAudio;
+
+    internal Word (WordDto dto)
+    {
+        this.dto = dto;
+    }
+
+    public static class Mapper
+    {
+        public static Word Map(WordDto dto) => new Word(dto);
+        public static WordDto Map(Word domain) => domain.dto;
     }
 }

@@ -2,8 +2,6 @@
 using EnglishLearning.App.Models;
 using EnglishLearning.App.Services;
 using EnglishLearning.App.Views;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;

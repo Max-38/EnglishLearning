@@ -1,40 +1,38 @@
 ﻿using EnglishLearning.App.Services;
 using EnglishLearning.App.ViewModels;
-using EnglishLearning.Memory;
+using EnglishLearning.Data.EF;
+using EnglishLearning.Services;
 using Microsoft.Extensions.DependencyInjection;
-
+using Microsoft.Extensions.Hosting;
+using System.Configuration;
 
 namespace EnglishLearning.App
 {
     public class ViewModelLocator
     {
-        private static ServiceProvider provider;
+        private static IHost host;
 
         public static void Init()
         {
-            var services = new ServiceCollection();
-
-            services.AddScoped<MainWindowVM>();
-            services.AddTransient<LearningPageVM>();
-            services.AddTransient<WordTranslationPageVM>();
-            services.AddTransient<ListeningPageVM>();
-            services.AddTransient<DictionaryPageVM>();
-
-            services.AddSingleton<IWordRepository, WordRepository> ();
-            services.AddSingleton<PageService>();
-
-            provider = services.BuildServiceProvider();
-
-            foreach (var item in services)
+            host = Host.CreateDefaultBuilder().ConfigureServices(services =>
             {
-                provider.GetRequiredService(item.ServiceType);
-            }
+                services.AddTransient<MainWindowVM>();
+                services.AddTransient<LearningPageVM>();
+                services.AddTransient<WordTranslationPageVM>();
+                services.AddTransient<ListeningPageVM>();
+                services.AddTransient<DictionaryPageVM>();
+
+                services.AddEfRepositories(ConfigurationManager.ConnectionStrings["DefaultConnection"].ToString());
+
+                services.AddSingleton<WordService>();
+                services.AddSingleton<PageService>();
+            }).Build();
         }
 
-        public LearningPageVM LearningPageVM => provider.GetRequiredService<LearningPageVM>();
-        public MainWindowVM MainWindowVM => provider.GetRequiredService<MainWindowVM>();
-        public WordTranslationPageVM WordTranslationPageVM => provider.GetRequiredService<WordTranslationPageVM>();
-        public ListeningPageVM ListeningPageVM => provider.GetRequiredService<ListeningPageVM>();
-        public DictionaryPageVM DictionaryPageVM => provider.GetRequiredService<DictionaryPageVM>();
+        public LearningPageVM LearningPageVM => host.Services.GetRequiredService<LearningPageVM>();
+        public MainWindowVM MainWindowVM => host.Services.GetRequiredService<MainWindowVM>();
+        public WordTranslationPageVM WordTranslationPageVM => host.Services.GetRequiredService<WordTranslationPageVM>();
+        public ListeningPageVM ListeningPageVM => host.Services.GetRequiredService<ListeningPageVM>();
+        public DictionaryPageVM DictionaryPageVM => host.Services.GetRequiredService<DictionaryPageVM>();
     }
 }
